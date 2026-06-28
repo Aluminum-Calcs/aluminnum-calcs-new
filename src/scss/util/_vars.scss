@@ -1,0 +1,28 @@
+
+@font-face {
+  font-family: 'cascadia-code';
+  src: url("../../assets/fonts/cascadia-code.ttf");
+}
+@font-face {
+  font-family: 'space-grotesk';
+  src: url("../../assets/fonts/space-grotesk.ttf");
+}
+
+$mini-tab: 500px;
+$tab: 700px;
+$big-tab: 900px;
+$desktop: 1100px;
+
+:root {
+  --sp: clamp(10px, 5dvw, 10%);
+  --text: #000;
+  --bg: #fff;
+  --cream: beige;
+  --dark-cream: #121212;
+  --medium: #aaa;
+  --tl: teal;
+
+  --error: crimson;
+  --correct: goldenrod;
+  --active: blue;
+}

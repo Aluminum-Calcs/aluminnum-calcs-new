@@ -1,0 +1,12 @@
+@use '../util/' as *;
+
+main.glass-price-page {
+  @include df(normal, normal, column, 20px);
+  @include responsiveGrid;
+}
+
+.results {
+  &__empty {
+    @include empty;
+  }
+}

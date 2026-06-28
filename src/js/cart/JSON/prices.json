@@ -1,0 +1,43 @@
+
+[
+  {
+    "name": "roller",
+    "price": 1000,
+    "qty": 200
+  },
+  {
+    "name": "handle",
+    "price": 1000,
+    "qty": 26
+  },
+  {
+    "name": "hinge",
+    "price": 2000,
+    "qty": 52
+  },
+  {
+    "name": "4mm screw (short)",
+    "price": 100,
+    "qty": 20
+  },
+  {
+    "name": "4mm screw (long)",
+    "price": 100,
+    "qty": 20
+  },
+  {
+    "name": "Coupling screw",
+    "price": 150,
+    "qty": 20
+  },
+  {
+    "name": "stopper (light)",
+    "price": 1500,
+    "qty": 20
+  },
+  {
+    "name": "stopper (thick)",
+    "price": 2000,
+    "qty": 20
+  }
+]

@@ -1,0 +1,57 @@
+@use '../util/' as *;
+
+section.hero {
+  padding: 20px var(--sp);
+  h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+}
+
+section.tools {
+  padding: 20px var(--sp);
+  .container {
+    @include df(normal, normal, column);
+    gap: 20px;
+  }
+  .cards {
+    @include dg(auto-fit, 250px, 1fr, 20px);
+    @media (min-width: $tab) {
+      @include dg(auto-fit, 350px, 1fr, 20px);
+    }
+    .card {
+      gap: 10px;
+      padding: 20px;
+      border: 1px solid;
+      border-radius: 10px;
+      background-color: var(--cream);
+      transition: all .3s ease-in-out;
+      text-align: center;
+      @include df(center, center, column, 10px);
+      &:hover {
+        transform: translateY(-5px);
+      }
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        position: relative;
+        @include df(center, center, column);
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: 50px;
+          height: 4px;
+          border-radius: 10px;
+          background: var(--tl);
+          transform: translateY(10px);
+        }
+      }
+      a {
+        @include btn(var(--text), #fff);
+      }
+    }
+  }
+}

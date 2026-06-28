@@ -1,0 +1,84 @@
+@use './vars' as *;
+
+@mixin df($j:normal,$a:normal, $fl:row, $g:0){
+  display: flex;
+  justify-content: $j;
+  align-items: $a;
+  flex-flow: $fl;
+  gap: $g;
+}
+
+@mixin dg($c:auto-fit, $min:0px, $max:1fr, $g:0){
+  display: grid;
+  grid-template-columns: repeat($c, minmax($min, $max));
+  gap: $g;
+}
+
+@mixin btn($c: var(--text), $bg:var(--cream)){
+  cursor: pointer;
+  background: $bg;
+  color: $c;
+  border: 1px solid;
+  padding: 5px 20px;
+  text-decoration: none;
+  font: inherit;
+  font-size: 15px;
+  transition: all .3s;
+  text-align: center;
+  @include df(center, center, row, 10px);
+  &:hover {
+    background: $c;
+    border-color: $c;
+    color: #fff;
+  }
+}
+
+
+@mixin error-msg() {
+  font-weight: bold;
+  font-size: 13px;
+  opacity: 0;
+  height: 0;
+  transition: all 0.3s;
+  @include df(normal, center, row, 10px);
+  &::before {
+    content: "!";
+    border: 1px solid;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: rgba(crimson, 0.1);
+    @include df(center, center);
+  }
+}
+
+@mixin empty {
+  padding: 20px;
+  height: 100%;
+  border-radius: 10px;
+  text-align: center;
+  @include df(center, center, column, 20px);
+  i {
+    background: var(--cream);
+    border: 1px solid;
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+    border-radius: 50%;
+    @include df(center, center);
+  }
+}
+
+@mixin responsiveGrid {
+  @media (min-width: $tab) {
+    padding: var(--sp);
+    justify-content: center;
+    @include dg(auto-fit, 300px, 1fr, 20px);
+    @media (min-width: $desktop) {
+      @include dg(auto-fit, 300px, 590px, 20px);
+    }
+    section {
+      padding: 0 !important;
+    }
+  }
+}

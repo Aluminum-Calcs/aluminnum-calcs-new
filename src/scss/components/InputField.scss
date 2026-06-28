@@ -1,0 +1,69 @@
+@use '../util/' as *;
+
+.InputField {
+  @include df(normal, normal, column, 5px);
+  &__container {
+    position: relative;
+    @include df(normal, normal, column, 5px);
+    label {
+      font-size: 13px;
+      font-weight: bold;
+      position: absolute;
+      top: 0;
+      left: 10px;
+      padding: 0 10px;
+      background-color: #fff;
+      transform: translateY(-50%);
+      text-transform: capitalize;
+    }
+    input {
+      font: inherit;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: block;
+      width: 100%;
+      padding: 20px 20px 15px 20px;
+      border: 1px solid;
+      outline: none;
+      &:focus {
+        border: 1px solid #81068e;
+      }
+      &:focus ~ label {
+        color: #81068e;
+      }
+    }
+  }
+  .error-message {
+    opacity: 0;
+    font-weight: bold;
+    font-size: 13px;
+    transition: all 0.3s;
+    @include df(normal, center, row, 10px);
+    &::before {
+      content: "!";
+      border: 1px solid;
+      border-radius: 50%;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: rgba(crimson, 0.1);
+      @include df(center, center);
+    }
+    &.static {
+      opacity: 1;
+    }
+  }
+  &.error {
+    .field__container {
+      label {
+        color: crimson;
+      }
+      input {
+        border-color: crimson;
+      }
+    }
+    .error-message {
+      opacity: 1;
+      color: crimson;
+    }
+  }
+}
