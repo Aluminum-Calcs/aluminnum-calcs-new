@@ -6,13 +6,20 @@ function InputField({
   inputType = "number",
   id,
   val,
+  value,
   msgType,
   msg,
+  onChange
 }) {
-  const [value, setValue] = useState(val);
+  const [valueState, setValueState] = useState(value ?? val ?? "");
+
+  useEffect(() => {
+    setValueState(value ?? val ?? "");
+  }, [value, val]);
 
   function handleChange(e) {
-    setValue(e.target.value);
+    setValueState(e.target.value);
+    if (onChange) onChange(e.target.value);
   }
 
   return (
@@ -21,13 +28,12 @@ function InputField({
         <input
           type={inputType}
           id={`${id}_input`}
-          val={val}
-          value={value}
+          value={valueState}
           onChange={handleChange}
         />
         <label
           htmlFor={`${id}_input`}>
-          {id && id}
+          {id && id.replace('-', ' ')}
         </label>
       </div>
 
@@ -87,10 +93,11 @@ function Checkbox({ data, name, selectedValue, onChange }) {
         type="radio"
         name={name}
         id={value}
-        checked={selectedValue == value}
+        value={value}
+        checked={selectedValue === value}
         onChange={() => {
-          onChange(value)
-          console.log(data, selectedValue, value, selectedValue == value);
+          onChange(value);
+          console.log(data, selectedValue, value, selectedValue === value);
         }}
       />
       <span>{value.replace('-'," ")}</span>

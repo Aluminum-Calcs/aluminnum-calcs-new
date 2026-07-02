@@ -1,7 +1,7 @@
 @use '../util/' as *;
 
 
-header {
+header.body-header {
   padding: 20px var(--sp);
   background: var(--cream);
   border-bottom: 1px solid var(--medium);
@@ -98,6 +98,27 @@ header {
       }
     }
   }
+  .calc-trigger {
+    @include btn(var(--bg), var(--text));
+    & {
+      position: fixed;
+      transform: translate(0,0);
+      bottom: 50px;
+      right: var(--sp);
+      z-index: 9;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    i {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      background: var(--tl);
+      color: var(--cream);
+    }
+  }
   #ch:checked {
     ~ nav {
       transform: translateY(0);
@@ -147,6 +168,8 @@ header {
   }
 
   // latest mobile styling
+  
+
   @media (max-width: $mini-tab) {
     padding: 5px var(--sp);
     .logo {
@@ -162,7 +185,8 @@ header {
     }
     .hamburger {
       span {
-        width: 5px;
+        width: 25px;
+        height: 1px;
         border-radius: 20px;
       }
     }

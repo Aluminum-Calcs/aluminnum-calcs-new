@@ -4,7 +4,7 @@
   padding: 0 var(--sp);
   .container {
     padding: 0;
-    @include df(normal, normal, column, 10px);
+    @include df(normal, normal, column, 20px);
   }
 
   fieldset {
@@ -19,34 +19,20 @@
     }
     .types {
       padding: 20px;
-      @include df(normal, normal, column, 15px);
+      @include df(normal, normal, column, 10px);
       label {
         text-transform: capitalize;
-        border: 1px solid;
-        // font-weight: 700;
         font-size: 14px;
-        padding: 10px;
         border-radius: 10px;
         background: #fff;
         @include df(normal, center, row, 10px);
         input {
-          appearance: none;
+          accent-color: var(--tl);
           outline: transparent;
           border: 1px solid;
           width: 20px;
           height: 20px;
           background: var(--bg);
-          &:checked {
-            &::after {
-              transition: all 0.3s;
-              content: "✓";
-              width: 100%;
-              height: 100%;
-              background: var(--txt);
-              color: var(--bg);
-              @include df(center, center);
-            }
-          }
         }
       }
       .error-msg {

@@ -4,6 +4,7 @@ import PageContextProvider from './context/PageContext.jsx';
 
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
+import CalculatorModal from './components/CalculatorModal.jsx';
 
 import Home from './pages/Home.jsx'
 import Channels from './pages/Channels.jsx';
@@ -23,6 +24,7 @@ function App() {
       <PageContextProvider>
         <BrowserRouter>
           <Header/>
+          <CalculatorModal />
 
           <Routes>
             <Route

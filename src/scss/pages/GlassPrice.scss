@@ -6,6 +6,7 @@ main.glass-price-page {
 }
 
 .results {
+  @include df(normal, normal, column, 20px);
   &__empty {
     @include empty;
   }

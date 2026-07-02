@@ -1,26 +1,48 @@
+function normalizeWindowType(windowType) {
+  return windowType?.toString().replace(/-window$/i, "").toLowerCase() || "";
+}
 
-export function checkForErrors(windowType = null, sashes = null) {
-  if (windowType == null) {
-    sel("form fieldset.windowType").classList.add('error');
-    return;
-  }else sel("form fieldset.windowType").classList.remove('error');
-  
-  if (windowType != "sliding" && typeof sashes != "number") {
-    sel("form fieldset.sash-field").classList.add('error');
-    return;
-  } sel("form fieldset.sash-field").classList.remove('error');
-  console.log("error removed");
+function normalizeSashes(sashes) {
+  if (typeof sashes === "number") return sashes;
+  if (typeof sashes === "string") {
+    const numeric = Number(sashes);
+    if (!Number.isNaN(numeric)) return numeric;
 
+    const map = {
+      one: 1,
+      two: 2,
+    };
 
-  if (!inputWidth.value) {
-    inputWidth.closest('.field').classList.add('error');
-    if (inputHeight.value) calculate("height", windowType, sashes);
-  } else if (!inputHeight.value) {
-    inputHeight.closest('.field').classList.add('error');
-    if (inputWidth.value) calculate("width", windowType, sashes);
-  } else {
-    inputWidth.closest('.field').classList.remove('error');
-    inputHeight.closest('.field').classList.remove('error');
-    calculate("all", windowType, sashes);
+    return map[sashes.toLowerCase()] ?? null;
   }
+  return null;
+}
+
+export function validateStileInputs({ windowType = null, sashes = null, width = "", height = "" }) {
+  const errors = {};
+  const normalizedType = normalizeWindowType(windowType);
+  const sashCount = normalizeSashes(sashes);
+
+  if (!normalizedType) {
+    errors.windowType = "Please choose a window type.";
+  }
+
+  if (normalizedType !== "sliding" && sashCount == null) {
+    errors.sashes = "Please choose the number of sashes.";
+  }
+
+  if (!width || Number(width) <= 0) {
+    errors.width = "Please enter a valid width.";
+  }
+
+  if (!height || Number(height) <= 0) {
+    errors.height = "Please enter a valid height.";
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+    normalizedType,
+    sashCount,
+  };
 }

@@ -1,120 +1,50 @@
-import { sel } from "./util/index.js";
-import display from "./display.js";
+export default function calculateCasement(input, sash = 1, width = 0, height = 0) {
+  const w = Number(width) || 0;
+  const h = Number(height) || 0;
+  const rows = [];
 
-export default function calculateCasement(input, sash) {
-  let w = sel('#width__input');
-  w = w? w.value: 0;
-  let h = sel('#height__input');
-  h = h? h.value: 0;
-  let in_w = 0;
-  let in_h = 0;
-  let gw = 0;
-  let gh = 0;
-  let html = null;
-  
-  if (input == "width") {
-    sash == 1? in_w = w - 70: in_w = (w - 110) / 2;
-    gw = in_w - 130;
-    html = `
-      <tr>
-        <td>Width</td>
-        <td>${w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Inner Width</td>
-        <td>${in_w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Width</td>
-        <td>${gw}</td>
-        <td>--</td>
-      </tr>
-    `;
-    sash == 2 ? html += `
-      <tr>
-        <td>Molium Placement</td>
-        <td>${(w - 42) / 2}</td>
-        <td>--</td>
-      </tr>
-    `: null;
-  } else if (input == "height") {
-    in_h = h - 70;
-    gh = in_h - 130;
-    html = `
-      <tr>
-        <td>Height</td>
-        <td>${h}</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <td>Inner Height</td>
-        <td>${in_h}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Height</td>
-        <td>${gh}</td>
-        <td>--</td>
-      </tr>
-    `;
-    sash == 2 ? html += `
-      <tr>
-        <td>Molium height</td>
-        <td>${h - 60}</td>
-        <td>--</td>
-      </tr>
-    `: null;
+  if (input === "width") {
+    const in_w = sash === 1 ? w - 70 : (w - 110) / 2;
+    const gw = in_w - 130;
+    rows.push(
+      { label: "Width", value: w, price: "--" },
+      { label: "Inner Width", value: in_w, price: "--" },
+      { label: "Glass Width", value: gw, price: "--" }
+    );
+    if (sash === 2) {
+      rows.push({ label: "Molium Placement", value: (w - 42) / 2, price: "--" });
+    }
+  } else if (input === "height") {
+    const in_h = h - 70;
+    const gh = in_h - 130;
+    rows.push(
+      { label: "Height", value: h, price: "..." },
+      { label: "Inner Height", value: in_h, price: "--" },
+      { label: "Glass Height", value: gh, price: "--" }
+    );
+    if (sash === 2) {
+      rows.push({ label: "Molium height", value: h - 60, price: "--" });
+    }
   } else {
-    in_h = h - 70;
-    sash == 1? in_w = w - 70: in_w = (w - 110) / 2;
-    gh = in_h - 130;
-    gw = in_w - 130;
-    html = `
-      <tr>
-        <td>Width</td>
-        <td>${w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Inner Width</td>
-        <td>${in_w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Width</td>
-        <td>${gw}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Height</td>
-        <td>${h}</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <td>Inner Height</td>
-        <td>${in_h}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Height</td>
-        <td>${gh}</td>
-        <td>--</td>
-      </tr>
-    `;
-    sash == 2 ? html += `
-      <tr>
-        <td>Molium height</td>
-        <td>${h - 60}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Molium Placement</td>
-        <td>${(w - 42) / 2}</td>
-        <td>--</td>
-      </tr>
-    `: null;
+    const in_h = h - 70;
+    const in_w = sash === 1 ? w - 70 : (w - 110) / 2;
+    const gh = in_h - 130;
+    const gw = in_w - 130;
+    rows.push(
+      { label: "Width", value: w, price: "--" },
+      { label: "Inner Width", value: in_w, price: "--" },
+      { label: "Glass Width", value: gw, price: "--" },
+      { label: "Height", value: h, price: "..." },
+      { label: "Inner Height", value: in_h, price: "--" },
+      { label: "Glass Height", value: gh, price: "--" }
+    );
+    if (sash === 2) {
+      rows.push(
+        { label: "Molium height", value: h - 60, price: "--" },
+        { label: "Molium Placement", value: (w - 42) / 2, price: "--" }
+      );
+    }
   }
-  display(html);
+
+  return rows;
 }

@@ -1,123 +1,47 @@
-import { sel } from "./util/index.js";
-import display from "./display.js";
+export default function calculateFrameless(input, sash = 1, width = 0, height = 0, matterTransom = false) {
+  const w = Number(width) || 0;
+  const h = Number(height) || 0;
+  const rows = [];
+  const th = matterTransom ? h - 110 : h;
+  const in_w = sash === 1 ? w - 40 : (w - 60) / 2;
+  const in_h = th - 85;
+  const gw = in_w - 20;
+  const gh = in_h - 15;
 
-export default function calculateFrameless(input, sash = 1, matterTransom = false) {
-  let w = sel('#width__input');
-  w = w? (w.value - 50): 0;
-  let h = sel('#height__input');
-  h = h? (h.value - 30): 0;
-  let th;// The transom variable for non mattered height
-  let in_w = 0;
-  let in_h = 0;
-  let gw = 0;
-  let gh = 0;
-  let html = null;
-  
-  if (input == "width") {
-    sash == 1? in_w = w - 40: in_w = (w - 60) / 2;
-    gw = in_w - 20;
-    html = `
-      <tr>
-        <td>Width</td>
-        <td>${w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Inner Width</td>
-        <td>${in_w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Width</td>
-        <td>${gw}</td>
-        <td>--</td>
-      </tr>
-    `;
-    sash == 2 ? html += `
-      <tr>
-        <td>Molium Placement</td>
-        <td>${(w - 55) / 2}</td>
-        <td>--</td>
-      </tr>
-    `: null;
-  } else if (input == "height") {
-    th = matterTransom? h - (55*2): h;
-    in_h = th - 85;
-    gh = in_h - 15;
-    html = `
-      <tr>
-        <td>Height</td>
-        <td>${th}</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <td>Inner Height</td>
-        <td>${in_h}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Height</td>
-        <td>${gh}</td>
-        <td>--</td>
-      </tr>
-    `;
-    sash == 2 ? html += `
-      <tr>
-        <td>Molium height</td>
-        <td>${th - 110}</td>
-        <td>--</td>
-      </tr>
-    `: null;
+  if (input === "width") {
+    rows.push(
+      { label: "Width", value: w, price: "--" },
+      { label: "Inner Width", value: in_w, price: "--" },
+      { label: "Glass Width", value: gw, price: "--" }
+    );
+    if (sash === 2) {
+      rows.push({ label: "Molium Placement", value: (w - 55) / 2, price: "--" });
+    }
+  } else if (input === "height") {
+    rows.push(
+      { label: "Height", value: th, price: "..." },
+      { label: "Inner Height", value: in_h, price: "--" },
+      { label: "Glass Height", value: gh, price: "--" }
+    );
+    if (sash === 2) {
+      rows.push({ label: "Molium height", value: th - 110, price: "--" });
+    }
   } else {
-    th = matterTransom? h - (55*2): h;
-    in_h = th - 85;
-    sash == 1? in_w = w - 40: in_w = (w - 60) / 2;
-    gh = in_h - 15;
-    gw = in_w - 20;
-    html = `
-      <tr>
-        <td>Width</td>
-        <td>${w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Inner Width</td>
-        <td>${in_w}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Width</td>
-        <td>${gw}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Height</td>
-        <td>${th}</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <td>Inner Height</td>
-        <td>${in_h}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Height</td>
-        <td>${gh}</td>
-        <td>--</td>
-      </tr>
-    `;
-    sash == 2 ? html += `
-      <tr>
-        <td>Molium height</td>
-        <td>${th - 110}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Molium Placement</td>
-        <td>${(w - 55) / 2}</td>
-        <td>--</td>
-      </tr>
-    `: null;
+    rows.push(
+      { label: "Width", value: w, price: "--" },
+      { label: "Inner Width", value: in_w, price: "--" },
+      { label: "Glass Width", value: gw, price: "--" },
+      { label: "Height", value: th, price: "..." },
+      { label: "Inner Height", value: in_h, price: "--" },
+      { label: "Glass Height", value: gh, price: "--" }
+    );
+    if (sash === 2) {
+      rows.push(
+        { label: "Molium height", value: th - 110, price: "--" },
+        { label: "Molium Placement", value: (w - 55) / 2, price: "--" }
+      );
+    }
   }
-  display(html);
+
+  return rows;
 }

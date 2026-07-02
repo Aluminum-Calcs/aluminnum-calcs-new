@@ -82,3 +82,17 @@
     }
   }
 }
+
+@mixin after-styles {
+  margin: 0 0 10px 0;
+  &::after {
+    content:'';
+    background: var(--tl);
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    bottom: 0;
+    border-radius: 20px;
+    transform: translateY(10px);
+  }
+}

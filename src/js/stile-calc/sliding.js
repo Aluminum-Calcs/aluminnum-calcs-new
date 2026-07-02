@@ -1,111 +1,44 @@
-import { sel } from "./util/index.js";
-import display from "./display.js";
+export default function calculateSliding(input, width = 0, height = 0) {
+  const w = Number(width) || 0;
+  const h = Number(height) || 0;
+  const rows = [];
 
-export default function calculateSliding(input) {
-  let w = sel('#width__input');
-  w = w? w.value: 0;
-  let h = sel('#height__input');
-  h = h? h.value: 0;
-  let track = 0;
-  let jamb = 0;
-  let lobster = 0;
-  let top = 0;
-  let gw = 0;
-  let gh = 0;
-  let html = null;
-
-  if (input == "width") {
-    track = w;
-    top = (track - 166) / 2;
-    gw = top + 18;
-    html = `
-      <tr>
-        <td>Track</td>
-        <td>${track}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Top</td>
-        <td>${top}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Width</td>
-        <td>${gw}</td>
-        <td>--</td>
-      </tr>
-    `;
-  } else if (input == "height") {
-    jamb = h - 23;
-    lobster = jamb - 27;
-    gh = lobster - 80;
-    html = `
-      <tr>
-        <td>Side Jamb</td>
-        <td>${jamb}</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <td>Lock Stile</td>
-        <td>${lobster}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Interlock</td>
-        <td>${lobster}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Height</td>
-        <td>${gh}</td>
-        <td>--</td>
-      </tr>
-    `;
+  if (input === "width") {
+    const track = w;
+    const top = (track - 166) / 2;
+    const gw = top + 18;
+    rows.push(
+      { label: "Track", value: track, price: "--" },
+      { label: "Top", value: top, price: "--" },
+      { label: "Glass Width", value: gw, price: "--" }
+    );
+  } else if (input === "height") {
+    const jamb = h - 23;
+    const lobster = jamb - 27;
+    const gh = lobster - 80;
+    rows.push(
+      { label: "Side Jamb", value: jamb, price: "..." },
+      { label: "Lock Stile", value: lobster, price: "--" },
+      { label: "Interlock", value: lobster, price: "--" },
+      { label: "Glass Height", value: gh, price: "--" }
+    );
   } else {
-    track = w;
-    jamb = h - 23;
-    lobster = jamb - 27;
-    top = (track - 166) / 2;
-    gw = top + 18;
-    gh = lobster - 80;
-    html = `
-      <tr>
-        <td>Track</td>
-        <td>${track}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Side Jamb</td>
-        <td>${jamb}</td>
-        <td>...</td>
-      </tr>
-      <tr>
-        <td>Lock Stile</td>
-        <td>${lobster}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Interlock</td>
-        <td>${lobster}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Top</td>
-        <td>${top}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Height</td>
-        <td>${gh}</td>
-        <td>--</td>
-      </tr>
-      <tr>
-        <td>Glass Width</td>
-        <td>${gw}</td>
-        <td>--</td>
-      </tr>
-      
-    `;
+    const track = w;
+    const jamb = h - 23;
+    const lobster = jamb - 27;
+    const top = (track - 166) / 2;
+    const gw = top + 18;
+    const gh = lobster - 80;
+    rows.push(
+      { label: "Track", value: track, price: "--" },
+      { label: "Side Jamb", value: jamb, price: "..." },
+      { label: "Lock Stile", value: lobster, price: "--" },
+      { label: "Interlock", value: lobster, price: "--" },
+      { label: "Top", value: top, price: "--" },
+      { label: "Glass Height", value: gh, price: "--" },
+      { label: "Glass Width", value: gw, price: "--" }
+    );
   }
-  display(html);
+
+  return rows;
 }

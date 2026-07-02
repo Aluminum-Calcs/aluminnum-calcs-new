@@ -5,7 +5,7 @@ import { NavLink } from "react-router";
 import { Helmet } from "react-helmet-async";
 
 export default function Header() {
-  const { currentPage } = useContext(PageContext);
+  const { currentPage, setCalcMode } = useContext(PageContext);
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Header() {
           {`Aluminum Calcs | ${title && title}`}
         </title>
       </Helmet>
-      <header>
+      <header className="body-header">
         <div className="wrapper">
           <div className="logo">
             <svg className="logo__svg" viewBox="0 0 10 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,8 +55,17 @@ export default function Header() {
               <li>
                 <NavLink to="/cart">Cart</NavLink>
               </li>
+
             </ul>
           </nav>
+
+          <button
+            className="calc-trigger"
+            type="button"
+            onClick={() => setCalcMode('show')}
+          >
+            <i className="fa fa-calculator" aria-hidden="true"></i>
+          </button>
         </div>
       </header>
     </>

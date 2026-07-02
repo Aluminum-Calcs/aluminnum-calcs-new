@@ -1,63 +1,35 @@
-import { sel } from "../util/methods.js";
-// import display from "./display.js";
 import calculateCasement from "./casement.js";
 import calculateFrameless from "./frameless.js";
 import calculateSliding from "./sliding.js";
 
-
-export function calculate(input = "all", windowType, sashes) {
-  console.log(input, windowType);
-  if (windowType == "sliding") calculateSliding(input);
-
-  if (windowType == "casement") calculateCasement(input, sashes);
-
-  if (windowType == "frameless") calculateFrameless(input, sashes);
+function normalizeWindowType(windowType) {
+  return windowType?.toString().replace(/-window$/i, "").toLowerCase() || "";
 }
 
+function normalizeSashes(sashes) {
+  if (typeof sashes === "number") return sashes;
+  if (typeof sashes === "string") {
+    const numeric = Number(sashes);
+    if (!Number.isNaN(numeric)) return numeric;
 
-// setInterval(()=>{
-//   error();
-// }, 100);
+    const map = {
+      one: 1,
+      two: 2,
+    };
 
+    return map[sashes.toLowerCase()] ?? null;
+  }
+  return null;
+}
 
-export function error() {
-  let width__field = inputWidth.closest('.field');
-  let height__field = inputHeight.closest('.field');
-  let w_err = document.querySelector('.widthError');
-  let h_err = document.querySelector('.heightError');
+export function computeResult(input = "all", windowType, sashes, width = 0, height = 0) {
+  const normalizedType = normalizeWindowType(windowType);
+  const sashCount = normalizeSashes(sashes);
+  const parsedWidth = Number(width) || 0;
+  const parsedHeight = Number(height) || 0;
 
-  inputWidth.addEventListener('keyup', ()=>{
-    if (!inputWidth.value) {
-      width__field.classList.add('error');
-      w_err.textContent = 'Empty?'
-    } else {
-      if (inputWidth.value.length < 3) {
-        width__field.classList.add('error');
-        w_err.textContent = 'Is\'nt this too small?';
-      } else if(inputWidth.value > 16000) {
-        width__field.classList.add('error');
-        w_err.textContent = 'That\'s way large than what we have (16,000 mm)';
-      } else {
-        width__field.classList.remove('error');
-        w_err.textContent = '';
-      }
-    }
-  })
-  inputHeight.addEventListener('keyup', ()=>{
-    if (!inputHeight.value) {
-      height__field.classList.add('error');
-      h_err.textContent = 'Empty?'
-    } else {
-      if (inputHeight.value.length < 3) {
-        height__field.classList.add('error');
-        h_err.textContent = 'Is\'nt this too small?';
-      } else if(inputHeight.value > 16000) {
-        height__field.classList.add('error');
-        h_err.textContent = 'That\'s way large than what we have (16,000 mm)';
-      } else {
-        height__field.classList.remove('error');
-        h_err.textContent = '';
-      }
-    }
-  })
+  if (normalizedType === "sliding") return calculateSliding(input, parsedWidth, parsedHeight);
+  if (normalizedType === "casement") return calculateCasement(input, sashCount, parsedWidth, parsedHeight);
+  if (normalizedType === "frameless") return calculateFrameless(input, sashCount, parsedWidth, parsedHeight);
+  return [];
 }

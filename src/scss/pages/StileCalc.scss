@@ -1,0 +1,17 @@
+@use '../util/' as *;
+
+main.stileCalc-page {
+  @include df(normal, normal, column, 50px);
+  @include responsiveGrid;
+
+  .results {
+    padding: 20px var(--sp);
+    .container {
+      height: 100%;
+    }
+    &__empty {
+      @include empty;
+    }
+  }
+
+}

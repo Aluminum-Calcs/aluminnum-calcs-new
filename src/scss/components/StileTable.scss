@@ -1,0 +1,33 @@
+@use '../util/' as *;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid;
+  td,
+  th {
+    border: 1px solid;
+    padding: 10px;
+  }
+  thead,
+  tfoot {
+    background: var(--bg);
+    font-weight: bold;
+  }
+  tr {
+    :first-child {
+      text-align: left;
+    }
+    :nth-child(2) {
+      text-align: center;
+    }
+    :nth-child(3) {
+      text-align: right;
+    }
+  }
+  tfoot {
+    :nth-child(2) {
+      text-align: right;
+    }
+  }
+}
